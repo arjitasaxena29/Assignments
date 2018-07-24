@@ -1,0 +1,66 @@
+## LAB1
+
+
+1. SELECT STAFF_NAME, STAFF_SAL, DEPT_CODE FROM STAFF_MASTERS WHERE DEPT_CODE IN(20,30,40);
+
+-------------------------------------------------------------------------------------------
+
+2.SELECT STAFF_CODE "S_CODE", STAFF_NAME "S_NAME", DESIGN_CODE "D_CODE", DEPT_CODE "DP_CODE", HIREDATE AS H_DATE, STAFF_DOB AS S_DOB, STAFF_ADDRESS AS S_ADD, MGR_CODE AS "M_CODE", STAFF_SAL AS"S_SAL" FROM STAFF_MASTERS;
+
+-----------------------------------------------------------------------------------
+
+3. SELECT STUDENT_CODE, SUBJECT1,SUBJECT2,SUBJECT3, SUBJECT1+SUBJECT2+SUBJECT3 AS TOTAL_MARKS FROM STUDENT_MARKS;
+
+-----------------------------------------------------------------------------------
+
+4. SELECT * FROM STAFF_MASTERS WHERE DESIGN_CODE IN(SELECT DESIGN_CODE FROM DESIGNATION_MASTERS WHERE DESIGN_NAME='Professor' OR DESIGN_NAME='Lecturer');
+
+-----------------------------------------------------------------------------------
+
+5. SELECT STAFF_CODE, STAFF_NAME, DEPT_CODE FROM STAFF_MASTERS WHERE HIREDATE <= '20-JUL-2001';
+
+-----------------------------------------------------------------------------------
+
+6. SELECT S.STAFF_NAME, D.DESIGN_NAME FROM STAFF_MASTERS S JOIN DESIGNATION_MASTERS D ON S.DESIGN_CODE=D.DESIGN_CODE WHERE S.HIREDATE < '01-JAN-2003';
+
+-----------------------------------------------------------------------------------
+
+7.  SELECT S.STAFF_NAME, D.DESIGN_NAME, S.STAFF_SAL*10*12 AS INCOME FROM STAFF_MASTERS S JOIN DESIGNATION_MASTERS D ON S.DESIGN_CODE=D.DESIGN_CODE WHERE S.DEPT_CODE IN (10,30);
+
+-----------------------------------------------------------------------------------
+
+8. SELECT S.STAFF_NAME, FLOOR(months_between(sysdate,S.HIREDATE)/12) as EXPERIENCE_IN_YEARS FROM STAFF_MASTERS S JOIN DESIGNATION_MASTERS D ON S.DESIGN_CODE=D.DESIGN_CODE WHERE D.DESIGN_NAME='LECTURER';
+
+-----------------------------------------------------------------------------------
+
+9.  SELECT STAFF_NAME ||', '|| DEPT_CODE as Student_Info FROM STAFF_MASTERS;
+
+-----------------------------------------------------------------------------------
+
+10. SELECT STAFF_NAME, STAFF_SAL FROM STAFF_MASTERS WHERE STAFF_SAL BETWEEN 12000 AND 25000 ORDER BY 2,1;
+
+-----------------------------------------------------------------------------------
+
+11. SELECT STAFF_NAME FROM STAFF_MASTERS WHERE MGR_CODE=null;
+
+-----------------------------------------------------------------------------------
+
+12. SELECT STUDENT_NAME, DEPT_CODE, STUDENT_DOB FROM STUDENT_MASTERS WHERE STUDENT_DOB BETWEEN '01-JAN-1981' AND '31-MAR-1983';
+
+-----------------------------------------------------------------------------------
+
+13. SELECT DEPT_CODE, SUM(STAFF_SAL) FROM STAFF_MASTERS WHERE STAFF_CODE NOT IN( SELECT MGR_CODE FROM STAFF_MASTERS) GROUP BY DEPT_CODE HAVING SUM(STAFF_SAL) > 20000;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+14. SELECT * FROM BOOK_TRANSACTIONS WHERE BOOK_ACTUAL_RETURN_DATE=NULL AND BOOK_EXPECTED_RETURN_DATE IN(select next_day(sysdate,'Mon')-7 from dual);
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+15. SELECT STUDENT_NAME, NVL(TO_CHAR( DEPT_CODE),'NO DEPARTMENT') AS DEPARTMENT FROM STUDENT_MASTERS ;
+
+------------------------------------------------------------------------------------------------------
+
+16. SELECT STAFF_NAME, STAFF_SAL, LPAD('X', TRUNC(STAFF_SAL/1000), 'X') FROM STAFF_MASTERS;
+
+-------------------------------------------------------------------------------------------

@@ -1,0 +1,115 @@
+## LAB_2 
+
+# 2.1: SINGLE ROW FUNCTIONS:
+
+
+1. SELECT STUDENT_NAME, TO_CHAR(STUDENT_DOB, 'MONTH DD YYYY') AS STUDENT_DOB FROM STUDENT_MASTER WHERE TO_CHAR(STUDENT_DOB, 'DAY') LIKE ('%SATURDAY%') OR TO_CHAR(STUDENT_DOB, 'DAY') LIKE (%SUNDAY%);
+
+-----------------------------------------------------------------------------------
+
+2. SELECT STAFF_NAME, ROUND(MONTHS_BETWEEN(SYSDATE, HIREDATE)) AS "MONTHS_WORKED" FROM STAFF_MASTERS ORDER BY MONTHS_WORKED DESC;
+
+-----------------------------------------------------------------------------------
+
+3. SELECT * FROM STAFF_MASTERS WHERE STAFF_NAME LIKE 'A%S';
+
+-----------------------------------------------------------------------------------
+
+4. SELECT S.STAFF_NAME, D.DESIGN_NAME from STAFF_MASTERS S JOIN DESIGNATION_MASTERS D ON S.DESIGN_CODE=D.DESIGN_CODE WHERE (SUBSTR(STAFF_NAME,2,1)='n' OR SUBSTR(STAFF_NAME,3,1)='n') AND (SUBSTR(STAFF_NAME,LENGTH(STAFF_NAME),1)='n' OR (SUBSTR(STAFF_NAME,LENGTH(STAFF_NAME),1)='s'));
+
+-----------------------------------------------------------------------------------
+
+5.  SELECT STAFF_NAME,LPAD(STAFF_SAL,15,'$' ) AS STAFF_SAL FROM STAFF_MASTERS;
+
+-----------------------------------------------------------------------------------
+
+6. SELECT STAFF_NAME FROM STAFF_MASTERS WHERE REGEXP_LIKE(STAFF_NAME,'_');
+
+-----------------------------------------------------------------------------------
+
+7. SELECT * FROM STAFF_MASTERS WHERE TO_CHAR(HIREDATE,'MONTH') LIKE '%DECEMBER%' ;
+
+-----------------------------------------------------------------------------------
+
+8. SELECT STAFF_NAME,STAFF_SAL,
+	CASE
+	WHEN STAFF_SAL >=50000 THEN 'A'
+	WHEN STAFF_SAL  >25000 AND  STAFF_SAL<50000 THEN 'B'
+	WHEN STAFF_SAL  >10000 AND  STAFF_SAL<25000 THEN 'C'
+	ELSE 'D'
+	END CASE
+	FROM STAFF_MASTERS;
+
+-----------------------------------------------------------------------------------
+
+9. SELECT STAFF_NAME, HIREDATE, TO_CHAR(HIREDATE, 'DAY') AS DAY FROM STAFF_MASTERS ORDER BY TO_CHAR(HIREDATE-1,'D');
+
+-----------------------------------------------------------------------------------
+
+10. SELECT STAFF_NAME , LPAD('*',LENGTH(STAFF_NAME),'*') FROM STAFF_MASTERS;
+
+-----------------------------------------------------------------------------------
+
+11. SELECT STAFF_NAME ,SUBSTR(STAFF_NAME, 1,1) || LPAD('*',LENGTH(STAFF_NAME)-2,'*') || SUBSTR(STAFF_NAME,LENGTH(STAFF_NAME),LENGTH(STAFF_NAME)) FROM STAFF_MASTERS;
+
+-----------------------------------------------------------------------------------
+
+12. SELECT * FROM STAFF_MASTERS WHERE TO_CHAR(HIREDATE,'DD') <= 15;
+
+-----------------------------------------------------------------------------------
+
+13.SELECT STAFF_NAME, HIREDATE, TO_CHAR(HIREDATE, 'DAY') FROM STAFF_MASTERS ORDER BY TO_CHAR(HIREDATE-1,'D');
+
+-----------------------------------------------------------------------------------
+
+14. SELECT INSTR('Mississippi','i',2,3) FROM DUAL;
+
+-----------------------------------------------------------------------------------
+
+15. SELECT TO_CHAR(NEXT_DAY(LAST_DAY(SYSDATE)-7, 'FRIDAY'),'DD MONTH YYYY') AS PAYDATE FROM DUAL;
+
+
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+
+
+# 2.2: GROUP FUNCTIONS:
+
+
+16. SELECT ROUND(MAX(STAFF_SAL)) AS MAXIMUM, ROUND(MIN(STAFF_SAL)) AS MINIMUM, ROUND(SUM(STAFF_SAL)) AS TOTAL, ROUND(AVG(STAFF_SAL)) AS AVERAGE FROM STAFF_MASTERS;
+
+-----------------------------------------------------------------------------------
+
+17. SELECT D.DEPT_NAME, ROUND(MAX(S.STAFF_SAL)) AS MAXIMUM, ROUND(MIN(S.STAFF_SAL)) AS MINIMUM, ROUND(SUM(S.STAFF_SAL)) AS TOTAL, ROUND(AVG(S.STAFF_SAL)) AS AVERAGE FROM STAFF_MASTERS S JOIN DEPARTMENT_MASTERS D ON S.DEPT_CODE=D.DEPT_CODE GROUP BY D.DEPT_NAME;
+
+-----------------------------------------------------------------------------------
+
+18. SELECT D.DEPT_CODE, D.DEPT_NAME, COUNT(S.STAFF_CODE) FROM DEPARTMENT_MASTERS D JOIN STAFF_MASTERS S ON D.DEPT_CODE=S.DEPT_CODE GROUP BY D.DEPT_CODE, D.DEPT_NAME;
+
+-----------------------------------------------------------------------------------
+
+19. SELECT COUNT(DISTINCT(MGR_CODE)) AS TOTAL_NUMBER_OF_MANAGERS FROM STAFF_MASTERS;
+
+-----------------------------------------------------------------------------------
+
+20. SELECT STAFF_CODE "MGR_CODE", STAFF_NAME AS MGR_NAME, MIN(STAFF_SAL) FROM STAFF_MASTERS WHERE STAFF_CODE IN (SELECT MGR_CODE FROM STAFF_MASTERS) AND STAFF_SAL < 10000 GROUP BY STAFF_CODE, STAFF_NAME ORDER BY 3 DESC;
+
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
