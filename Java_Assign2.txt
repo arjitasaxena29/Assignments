@@ -1,0 +1,123 @@
+##ASSIGNMENT_2
+
+Case Study: Bank Account Management System
+Funds Bank needs an application to feed new account holder information. AccountHolder will be a person. There are two types of accounts such as SavingsAccount, CurrentAccount.
+?
+?
+
+Refer the below given case study and do the following operations:
+Create Account class as shown in the class diagram. 
+Ensure that the minimum balance of INR 500 in a bank account is available.
+Generate toString() method.
+Following definitions should be used in the Account class:
+  public void deposit(double rupees) {
+    // Set the balance of the account after the money is deposited to the account
+  }
+
+  public void withdraw(double rupees) {
+   // Set the balance of the account after the money is withdrawn from the account
+  }
+
+  public String toString() {
+    // Should return the string in the format:
+    // Name: TempName Age: 68.0 AccNumber: 1333339438704 Balance= 899.0
+  }
+
+  public double getBalance() {
+    // Should return the balance present in the Account
+  }
+  
+  public void setBalance(double bal){
+    // Set the balance for the account holder
+  }  
+
+  public void setAccountDetails(String name, float age, double balance) {
+    // Set the account details for the account holder
+  }
+  
+  public Person getPerson(){
+    // return the AccountHolder
+  }
+
+
+class Person {
+    // complete the class
+    public String name;
+    public float age;
+    
+    public Person() {
+        name="";
+        age=0;
+    }
+    public Person(String name,float age) {
+        this.name=name;
+        this.age=age;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name=name;
+    }
+    public float getAge() {
+        return age;
+    }
+    public void setAge(float age) {
+        this.age=age;
+    }
+}
+
+class Account {
+    long accNum=1;
+    double balance;
+    public Person accHolder;
+     
+    public Account() {
+        balance=0;
+        accHolder=null;
+    }
+    
+    public Account(String name,float age,double balance){
+        accHolder=this.getPerson();
+        this.setAccountDetails(name,age,balance);
+    }
+    public void deposit(double rupees) {
+        balance=balance+rupees;
+    }
+
+    public void withdraw(double rupees) {
+        double b=balance;
+        if((b-rupees)>500){
+            balance=balance-rupees;
+        }
+    }
+
+    public String toString() {
+        // Should return the string in the format:
+        // Name: TempName Age: 68.0 AccNumber: 1333339438704 Balance= 899.0
+        return ("Name: "+accHolder.name+" Age: "+accHolder.age+" AccNumber: "+accNum+" Balance= "+this.balance);
+    }
+
+    public double getBalance() {
+        // Should return the balance present in the Account
+        return balance;
+    }
+  
+    public void setBalance(double bal){
+        // Set the balance for the account holder
+        balance=bal;
+    }  
+
+    public void setAccountDetails(String name, float age, double balance) {
+        accHolder.setName(name);
+        accHolder.setAge(age);
+        this.setBalance(balance);
+    // Set the account details for the account holder
+    }
+  
+    public Person getPerson(){
+        Person p=new Person();
+        return p;
+    // return the AccountHolder
+    }
+}
